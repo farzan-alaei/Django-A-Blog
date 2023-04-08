@@ -52,6 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # is_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
