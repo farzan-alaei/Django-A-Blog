@@ -7,7 +7,7 @@ app_name = "blog"
 
 urlpatterns = [
     path('cbv-index', views.IndexView.as_view(), name='cbv-index'),
-    path('post', views.PostList.as_view(), name="post_list"),
+    path('post/', views.PostList.as_view(), name="post_list"),
     path(
         "go-to-google/<int:pk>",
         views.RedirectToGoogle.as_view(),
