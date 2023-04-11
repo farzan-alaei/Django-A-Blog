@@ -13,5 +13,6 @@ urlpatterns = [
         views.RedirectToGoogle.as_view(),
         name="go-to-google",
     ),
-    path('post/<int:pk>/', views.PostDetailView.as_view(), name="post-detail")
+    path('post/<int:pk>/', views.PostDetailView.as_view(), name="post-detail"),
+    path('post/create/', views.PostCreateView.as_view(), name="post-create"),
 ]

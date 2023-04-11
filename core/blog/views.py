@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView, RedirectView
 from .models import Post
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
+from .forms import PostForm
 
 # Create your views here.
 
@@ -15,6 +16,7 @@ def indexView(request):
     return render(request,"index.html")
 '''
 
+
 class IndexView(TemplateView):
     """
     a class based view to show index page
@@ -26,14 +28,13 @@ class IndexView(TemplateView):
         context["name"] = "ali"
         context["posts"] = Post.objects.all()
         return context
-    
-
 
 
 ''' FBV for redirect
 def redirectToGoogle(request):
     return redirect("https://google.com")
 '''
+
 
 class RedirectToGoogle(RedirectView):
     url = "https://google.com"
@@ -42,7 +43,7 @@ class RedirectToGoogle(RedirectView):
         post = get_object_or_404(Post, pk=kwargs['pk'])
         print(post)
         return super().get_redirect_url(*args, **kwargs)
-    
+
 
 class PostListView(ListView):
     # model = Post
@@ -54,9 +55,17 @@ class PostListView(ListView):
     def get_queryset(self):
         posts = Post.objects.filter(status=True)
         return posts
-    
 
 
 class PostDetailView(DetailView):
     model = Post
-    
+
+
+class PostCreateView(FormView):
+    template_name = "contact.html"
+    form_class = PostForm
+    success_url = '/blog/post/'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
