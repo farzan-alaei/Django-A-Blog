@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Post List View</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
             <a href="{% url 'blog:post-delete' pk=post.id %}">
                 <h5>delete</h5>
             </a>
-            <small>{{ post.content }} - {{ post.author }} - {{ post.created_date }}</small>
+            <small>{{ post.content }} - {{ post.author.first_name }} - {{ post.author.last_name}} - {{ post.created_date }}</small>
         </li>
         {% endfor %}
     </ol>
