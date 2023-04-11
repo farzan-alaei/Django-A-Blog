@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView, RedirectView
 from .models import Post
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 
@@ -44,7 +44,7 @@ class RedirectToGoogle(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
     
 
-class PostList(ListView):
+class PostListView(ListView):
     # model = Post
     # queryset = Post.objects.all()
     context_object_name = "posts"
@@ -56,4 +56,7 @@ class PostList(ListView):
         return posts
     
 
+
+class PostDetailView(DetailView):
+    model = Post
     
