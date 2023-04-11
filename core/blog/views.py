@@ -4,7 +4,7 @@ from .models import Post
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from .forms import PostForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 # Create your views here.
 
 # Function Base view show a template
@@ -45,7 +45,8 @@ class RedirectToGoogle(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-class PostListView(LoginRequiredMixin, ListView):
+class PostListView(PermissionRequiredMixin ,LoginRequiredMixin, ListView):
+    permission_required = 'blog.view_post'
     # model = Post
     # queryset = Post.objects.all()
     context_object_name = "posts"
