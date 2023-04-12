@@ -2,6 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PostSerializer
 from ...models import Post
+from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 
 data = {
@@ -16,6 +18,7 @@ def postList(request):
 
 @api_view()
 def postDetail(request, id):
-    post = Post.objects.get(pk=id)
+    post = get_object_or_404(Post, pk=id)
     serializer = PostSerializer(post)
     return Response(serializer.data)
+    
