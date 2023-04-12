@@ -14,7 +14,7 @@ data = {
 
 
 @api_view(["GET", "POST"])
-@permission_classes([IsAuthenticatedOrReadOnly])
+@permission_classes([IsAuthenticated])
 def postList(request):
     if request.method == "GET":
         posts = Post.objects.filter(status=True)
@@ -28,6 +28,7 @@ def postList(request):
 
 
 @api_view(["GET", "PUT", "DELETE"])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def postDetail(request, id):
     post = get_object_or_404(Post, pk=id, status=True)
     if request.method == "GET":
