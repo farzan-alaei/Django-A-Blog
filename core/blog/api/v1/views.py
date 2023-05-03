@@ -11,6 +11,7 @@ from rest_framework import mixins, viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
+from .paginations import DefaultPagination
 # Example for function base view
 """
 @api_view(["GET", "POST"])
@@ -119,6 +120,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
     filterset_fields = ['category', 'author', 'status']
     search_fields = ['title', 'content']
     ordering_fields = ['published_date']
+    pagination_class = DefaultPagination
 
 
 
