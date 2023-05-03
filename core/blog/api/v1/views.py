@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import mixins, viewsets
 from .permissions import IsOwnerOrReadOnly
-
+from django_filters.rest_framework import DjangoFilterBackend
 # Example for function base view
 """
 @api_view(["GET", "POST"])
@@ -114,6 +114,8 @@ class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'author', 'status']
 
 
 class CategoryModelViewSet(viewsets.ModelViewSet):
