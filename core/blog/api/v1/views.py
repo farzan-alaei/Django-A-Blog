@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import mixins, viewsets
+from .permissions import IsOwnerOrReadOnly
 
 # Example for function base view
 """
@@ -110,7 +111,7 @@ class PostDetail(RetrieveUpdateDestroyAPIView):
 
 # Example for Viewset in class base view
 class PostModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
 
